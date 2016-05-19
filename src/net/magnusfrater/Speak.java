@@ -33,28 +33,11 @@ public class Speak {
                 if (pronunciation[i].length()>0) //if arpasound exists
                     paths.add(pattern + pronunciation[i] + wav); //append arpasound
             }
-            System.out.println("*BREAK*");
+            System.out.println();
             //paths.add(pattern +"wordSpace"+ wav); //append pause between words
         }
 
         sound.concatWav(paths);
-        sound.playWav(concatWav);
-    }
-
-    protected void temp2(){
-        ArrayList<String> paths = new ArrayList<String>();
-
-        String pattern = "res/arpasounds/";
-        String wav = ".wav";
-        String concatWav = pattern +"concatWav.wav";
-
-        paths.add(pattern +"HH"+ wav);
-        paths.add(pattern +"AH0"+ wav);
-        paths.add(pattern +"L"+ wav);
-        paths.add(pattern +"OW1"+ wav);
-
-        sound.concatWav(paths);
-
         sound.playWav(concatWav);
     }
 }
