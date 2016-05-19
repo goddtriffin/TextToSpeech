@@ -34,7 +34,7 @@ public class Speak {
                     paths.add(pattern + pronunciation[i] + wav); //append arpasound
             }
             System.out.println("*BREAK*");
-            paths.add(pattern +"sentenceSpace"+ wav); //append pause between words
+            //paths.add(pattern +"wordSpace"+ wav); //append pause between words
         }
 
         sound.concatWav(paths);
