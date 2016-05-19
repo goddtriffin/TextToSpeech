@@ -28,13 +28,13 @@ public class Speak {
             String[] pronunciation = ds.getPronunciation(word.toUpperCase(), false);
 
             for (int i=1; i<pronunciation.length; i++){
-                System.out.print(pronunciation[i] +"+");
+                System.out.print(pronunciation[i] +" ");
 
                 if (pronunciation[i].length()>0) //if arpasound exists
                     paths.add(pattern + pronunciation[i] + wav); //append arpasound
             }
             System.out.println();
-            //paths.add(pattern +"wordSpace"+ wav); //append pause between words
+            paths.add(pattern +"wordBreak"+ wav); //append pause between words
         }
 
         sound.concatWav(paths);

@@ -102,7 +102,6 @@ public class TextToSpeech extends JFrame {
 
         //top
         jtfInput = new JTextField();
-        jtfInput.setText("Hello");
         mid.add(jtfInput);
 
         mid.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
@@ -113,6 +112,7 @@ public class TextToSpeech extends JFrame {
             public void actionPerformed(ActionEvent e){
                 new Thread(new Runnable(){
                     public void run(){
+                        //df.printArpasoundWords("L",false,false);
                         s.speak(jtfInput.getText());
                     }
                 }).start();
