@@ -16,19 +16,29 @@ public class Speak {
     }
 
     protected void speak(String input){
-        String[] words = input.split(" ");
+        String[] words = input.split(" "); //input -> separated words
 
-        ArrayList<String[]> translated = new ArrayList<>();
+        String pattern = "res/arpasounds/";
+        String wav = ".wav";
+        String concatWav = pattern +"concatWav"+ wav;
 
-        for (int i=0; i<words.length; i++){ //gets pronunciations of all input's words
-            translated.add(translateWord(words[i]));
+        ArrayList<String> paths = new ArrayList<>(); //holds all arpasound paths
+
+        for (String word : words){
+            String[] pronunciation = ds.getPronunciation(word.toUpperCase(), false);
+
+            for (int i=1; i<pronunciation.length; i++){
+                System.out.print(pronunciation[i] +"+");
+
+                if (pronunciation[i].length()>0) //if arpasound exists
+                    paths.add(pattern + pronunciation[i] + wav); //append arpasound
+            }
+            System.out.println("*BREAK*");
+            paths.add(pattern +"sentenceSpace"+ wav); //append pause between words
         }
 
-
-    }
-
-    private String[] translateWord(String word){
-        return ds.getPronunciation(word,false);
+        sound.concatWav(paths);
+        sound.playWav(concatWav);
     }
 
     protected void temp2(){

@@ -111,7 +111,7 @@ public class TextToSpeech extends JFrame {
         jbSpeak = new JButton("Speak");
         jbSpeak.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                s.temp2();
+                s.speak(jtfInput.getText());
             }
         });
         bot.add(jbSpeak);
