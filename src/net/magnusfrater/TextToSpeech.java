@@ -112,7 +112,6 @@ public class TextToSpeech extends JFrame {
             public void actionPerformed(ActionEvent e){
                 new Thread(new Runnable(){
                     public void run(){
-                        //df.printArpasoundWords("L",false,false);
                         s.speak(jtfInput.getText());
                     }
                 }).start();
@@ -127,5 +126,7 @@ public class TextToSpeech extends JFrame {
 
     public static void main(String[] args){
         TextToSpeech tts = new TextToSpeech();
+
+        tts.df.printArpasoundWords("AO0",false,false);
     }
 }
