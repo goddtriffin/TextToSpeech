@@ -32,7 +32,7 @@ public class Sound {
                         clip1.getFrameLength() + clip2.getFrameLength());
                 clip1 = appendedFiles;
             }
-            AudioSystem.write(clip1, AudioFileFormat.Type.WAVE, new File("res/arpasounds/concatWav.wav"));
+            AudioSystem.write(clip1, AudioFileFormat.Type.WAVE, new File("src/res/arpasounds/concatWav.wav"));
 
         }catch (Exception e) {
             e.printStackTrace();

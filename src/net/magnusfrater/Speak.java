@@ -12,13 +12,17 @@ public class Speak {
     public Speak(){
         sound = new Sound();
 
-        ds = new DatabaseService("res/PronunciationDictionary.txt");
+        ds = new DatabaseService("src/res/PronunciationDictionary.txt");
     }
 
     protected void speak(String input){
+        input = input.toUpperCase();
+
+        input = analyzeInput(input);
+
         String[] words = input.split(" "); //input -> separated words
 
-        String pattern = "res/arpasounds/";
+        String pattern = "src/res/arpasounds/";
         String wav = ".wav";
         String concatWav = pattern +"concatWav"+ wav;
 
@@ -27,17 +31,65 @@ public class Speak {
         for (String word : words){
             String[] pronunciation = ds.getPronunciation(word.toUpperCase(), false);
 
-            for (int i=1; i<pronunciation.length; i++){
-                System.out.print(pronunciation[i] +" ");
+            if (pronunciation.length < 2){ //unknown word
+                for (int j=0; j<word.length(); j++){ //pronounce each letter
+                    pronunciation = ds.getPronunciation(String.valueOf(word.charAt(j)), false);
 
-                if (pronunciation[i].length()>0) //if arpasound exists
-                    paths.add(pattern + pronunciation[i] + wav); //append arpasound
+                    for (int i=1; i<pronunciation.length; i++){
+                        System.out.print(pronunciation[i] +" ");
+
+                        if (pronunciation[i].length()>0) //if arpasound exists
+                            paths.add(pattern + pronunciation[i] + wav); //append arpasound
+                    }
+                    System.out.print(" | ");
+                }
+            } else { //known word
+                for (int i=1; i<pronunciation.length; i++){
+                    System.out.print(pronunciation[i] +" ");
+
+                    if (pronunciation[i].length()>0) //if arpasound exists
+                        paths.add(pattern + pronunciation[i] + wav); //append arpasound
+                }
+                paths.add(pattern +"wordBreak"+ wav); //append pause between words
             }
+
             System.out.println();
-            paths.add(pattern +"wordBreak"+ wav); //append pause between words
         }
 
         sound.concatWav(paths);
         sound.playWav(concatWav);
+    }
+
+    private String analyzeInput(String input){
+
+        for (int i=0; i<input.length(); i++){
+            char c = input.charAt(i);
+
+            if (c == '0')
+                input = input.substring(0,i) +" ZERO "+ input.substring(i+1);
+            if (c == '1')
+                input = input.substring(0,i) +" ONE "+ input.substring(i+1);
+            if (c == '2')
+                input = input.substring(0,i) +" TWO "+ input.substring(i+1);
+            if (c == '3')
+                input = input.substring(0,i) +" THREE "+ input.substring(i+1);
+            if (c == '4')
+                input = input.substring(0,i) +" FOUR "+ input.substring(i+1);
+            if (c == '5')
+                input = input.substring(0,i) +" FIVE "+ input.substring(i+1);
+            if (c == '6')
+                input = input.substring(0,i) +" SIX "+ input.substring(i+1);
+            if (c == '7')
+                input = input.substring(0,i) +" SEVEN "+ input.substring(i+1);
+            if (c == '8')
+                input = input.substring(0,i) +" EIGHT "+ input.substring(i+1);
+            if (c == '9')
+                input = input.substring(0,i) +" NINE "+ input.substring(i+1);
+
+            if (c!=32 && c!=0 && (c<65 || c>90))
+                input = input.substring(0,i) +" "+ input.substring(i+1);
+        }
+
+        return input;
     }
 }

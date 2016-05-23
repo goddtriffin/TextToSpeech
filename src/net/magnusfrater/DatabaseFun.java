@@ -7,7 +7,7 @@ public class DatabaseFun {
     DatabaseService ds;
 
     public DatabaseFun(){
-        ds = new DatabaseService("res/PronunciationDictionary.txt");
+        ds = new DatabaseService("src/res/PronunciationDictionary.txt");
     }
 
     protected void printAllTests(){

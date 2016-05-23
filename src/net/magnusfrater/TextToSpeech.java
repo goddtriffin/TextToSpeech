@@ -1,62 +1,3 @@
-/*
-;;; # CMUdict  --  Major Version: 0.07
-        ;;;
-        ;;; # $HeadURL$
-        ;;; # $Date::                                                   $:
-        ;;; # $Id::                                                     $:
-        ;;; # $Rev::                                                    $:
-        ;;; # $Author::                                                 $:
-        ;;;
-        ;;; #
-        ;;; # ========================================================================
-        ;;; # Copyright (C) 1993-2015 Carnegie Mellon University. All rights reserved.
-        ;;; #
-        ;;; # Redistribution and use in source and binary forms, with or without
-        ;;; # modification, are permitted provided that the following conditions
-        ;;; # are met:
-        ;;; #
-        ;;; # 1. Redistributions of source code must retain the above copyright
-        ;;; #    notice, this list of conditions and the following disclaimer.
-        ;;; #    The contents of this file are deemed to be source code.
-        ;;; #
-        ;;; # 2. Redistributions in binary form must reproduce the above copyright
-        ;;; #    notice, this list of conditions and the following disclaimer in
-        ;;; #    the documentation and/or other materials provided with the
-        ;;; #    distribution.
-        ;;; #
-        ;;; # This work was supported in part by funding from the Defense Advanced
-        ;;; # Research Projects Agency, the Office of Naval Research and the National
-        ;;; # Science Foundation of the United States of America, and by member
-        ;;; # companies of the Carnegie Mellon Sphinx Speech Consortium. We acknowledge
-        ;;; # the contributions of many volunteers to the expansion and improvement of
-        ;;; # this dictionary.
-        ;;; #
-        ;;; # THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND
-        ;;; # ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-        ;;; # THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-        ;;; # PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY
-        ;;; # NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-        ;;; # SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-        ;;; # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-        ;;; # DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-        ;;; # THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-        ;;; # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-        ;;; # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-        ;;; #
-        ;;; # ========================================================================
-        ;;; #
-        ;;;
-        ;;;  NOTES  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;;;
-        ;;;  [20080401] (air)  New dict file format introduced
-        ;;;   - comments (like this section) are allowed
-        ;;;   - file name is major version; vers/rev information is now in the header
-        ;;;
-        ;;;
-        ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        ;;;
-*/
-
 package net.magnusfrater;
 
 import javax.swing.*;
@@ -67,18 +8,59 @@ import java.awt.event.ActionListener;
 public class TextToSpeech extends JFrame {
 
     //FRAME
-    Dimension size = new Dimension(350,300);
+    Dimension size = new Dimension(350,95);
 
     Speak s;
     DatabaseFun df;
 
-    //PANELS
-    //top
+    //PANEL
     JTextField jtfInput;
-    //bot
-    JButton jbSpeak;
+    JButton jbInfo;
+    String info =
+            " CMUdict  --  Major Version: 0.07\n" +
+            " ========================================================================\n" +
+            " Copyright (C) 1993-2015 Carnegie Mellon University. All rights reserved.\n" +
+            " \n" +
+            " Redistribution and use in source and binary forms, with or without\n" +
+            " modification, are permitted provided that the following conditions\n" +
+            " are met:\n" +
+            " \n" +
+            "  1. Redistributions of source code must retain the above copyright\n" +
+            "     notice, this list of conditions and the following disclaimer.\n" +
+            "     The contents of this file are deemed to be source code.\n" +
+            " \n" +
+            "  2. Redistributions in binary form must reproduce the above copyright\n" +
+            "     notice, this list of conditions and the following disclaimer in\n" +
+            "     the documentation and/or other materials provided with the\n" +
+            "     distribution.\n" +
+            " \n" +
+            " This work was supported in part by funding from the Defense Advanced\n" +
+            " Research Projects Agency, the Office of Naval Research and the National\n" +
+            " Science Foundation of the United States of America, and by member\n" +
+            " companies of the Carnegie Mellon Sphinx Speech Consortium. We acknowledge\n" +
+            " the contributions of many volunteers to the expansion and improvement of\n" +
+            " this dictionary.\n" +
+            " \n" +
+            " THIS SOFTWARE IS PROVIDED BY CARNEGIE MELLON UNIVERSITY ``AS IS'' AND\n" +
+            " ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,\n" +
+            " THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n" +
+            " PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL CARNEGIE MELLON UNIVERSITY\n" +
+            " NOR ITS EMPLOYEES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n" +
+            " SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n" +
+            " LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n" +
+            " DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n" +
+            " THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n" +
+            " (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n" +
+            " OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n" +
+            " \n" +
+            " ========================================================================\n" +
+            "\n" +
+            "  NOTES\n" +
+            "\n" +
+            "- [20080401] (air)  New dict file format introduced\n" +
+            "- comments (like this section) are allowed\n" +
+            "- file name is major version; vers/rev information is now in the header\n";
 
-    int x = 0;
 
     public TextToSpeech(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,36 +79,33 @@ public class TextToSpeech extends JFrame {
 
     private void initComponents(){
         //panels
-        JPanel mid = new JPanel(new BorderLayout());
+        JPanel center = new JPanel(new BorderLayout());
         JPanel bot = new JPanel();
 
-        //top
+        //center
         jtfInput = new JTextField();
-        mid.add(jtfInput);
-
-        mid.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
-
-        //bot
-        jbSpeak = new JButton("Speak");
-        jbSpeak.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                new Thread(new Runnable(){
-                    public void run(){
-                        s.speak(jtfInput.getText());
-                    }
-                }).start();
+        jtfInput.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                s.speak(jtfInput.getText());
             }
         });
-        bot.add(jbSpeak);
+        center.add(jtfInput);
+
+        //bot
+        jbInfo = new JButton("Info");
+        jbInfo.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                JOptionPane.showMessageDialog(new JFrame(), info);
+            }
+        });
+        bot.add(jbInfo);
 
         //frame
-        add(mid,BorderLayout.CENTER);
-        add(bot,BorderLayout.SOUTH);
+        add(center,BorderLayout.CENTER);
+        add(bot, BorderLayout.SOUTH);
     }
 
     public static void main(String[] args){
         TextToSpeech tts = new TextToSpeech();
-
-        tts.df.printArpasoundWords("AO0",false,false);
     }
 }
